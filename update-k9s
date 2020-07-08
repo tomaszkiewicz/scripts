@@ -1,0 +1,13 @@
+#!/bin/bash
+
+k9s version
+
+pushd ~/bin
+url=$(curl https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.assets[].browser_download_url' | grep Linux_x86)
+curl -L $url > k9s.tgz
+tar -zxvf k9s.tgz
+rm LICENSE README.md
+rm k9s.tgz
+
+popd
+k9s version
