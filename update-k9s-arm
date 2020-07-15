@@ -1,13 +1,24 @@
 #!/bin/bash
 
-k9s version
+mkdir -p ~/bin
+~/bin/k9s version
 
 pushd ~/bin
-url=$(curl https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.assets[].browser_download_url' | grep arm\\.)
-curl -L $url > k9s.tgz
+
+echo "==> Checking latest version"
+url=$(curl -sS https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.assets[].browser_download_url' | grep arm\\.)
+
+echo "==> Downloading k9s"
+
+curl -sS -L $url > k9s.tgz
+
+echo "==> Unpacking k9s"
+
 tar -zxvf k9s.tgz
 rm LICENSE README.md
 rm k9s.tgz
 
 popd
-k9s version
+~/bin/k9s version
+
+echo "==> All done"
