@@ -1,7 +1,9 @@
 #!/bin/bash
 
 mkdir -p ~/bin
-~/bin/k9s version
+if [ -x ~/bin/k9s ]; then
+  ~/bin/k9s version
+fi
 
 pushd ~/bin
 
