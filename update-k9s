@@ -2,12 +2,24 @@
 
 k9s version
 
+mkdir -p ~/bin
 pushd ~/bin
-url=$(curl https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.assets[].browser_download_url' | grep Linux_x86)
+
+echo "==> downloading new version"
+
+url=$(curl -sS https://api.github.com/repos/derailed/k9s/releases/latest | jq -r '.assets[].browser_download_url' | grep Linux_amd64)
 curl -L $url > k9s.tgz
+
+echo "==> extracting"
+
 tar -zxvf k9s.tgz
 rm LICENSE README.md
 rm k9s.tgz
 
 popd
+
+echo "k9s updated and available under ~/bin/k9s"
+
 k9s version
+
+echo "==> all done"
